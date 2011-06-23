@@ -23,6 +23,7 @@ import simplejson
 import socket
 import datetime
 
+from django.utils.encoding import smart_str
 from django.utils.tzinfo import LocalTimezone
 from django.utils.translation import ungettext, ugettext
 from django.core import urlresolvers, serializers
@@ -386,7 +387,7 @@ class TruncatingModel(models.Model):
 
     super.__setattr__(self, name, value)
 
-def reverse_with_get(view, args=None, kwargs=None, get=None):
+def reverse_with_get(view, args=None, kwargs=None, get=None, do_not_escape=False):
   """
   Version of urlresolvers.reverse that also manages get parameters.
 
@@ -399,7 +400,10 @@ def reverse_with_get(view, args=None, kwargs=None, get=None):
     args = dict()
   url = urlresolvers.reverse(view, args=args, kwargs=kwargs)
   if get is not None and len(get) > 0:
-    params = urlencode(get)
+    if do_not_escape:
+      params = "&".join(["%s=%s" % (smart_str(k), smart_str(v),) for k, v in get.iteritems()])
+    else:
+      params = urlencode(get)
     url = url + "?" + params
   return url
 

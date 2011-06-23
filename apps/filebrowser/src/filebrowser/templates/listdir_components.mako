@@ -86,24 +86,24 @@ from desktop.lib.django_util import reverse_with_get
               % if ".." != file['name']:
                 <ul class="fb-item-actions context-menu">
                   % if "dir" == file['type']:
-                    <li class="fb-rmdir-container"><a class="fb-rmdir confirm_and_post" alt="Are you sure you want to delete this directory and its contents?" href="${reverse_with_get('filebrowser.views.rmdir', get=dict(path=path,next=current_request_path))}">Delete</a></li>
-                    <li class="fb-rmtree-container"><a class="fb-rmtree confirm_and_post fb-default-rm" alt="Are you sure you want to delete ${display_name} and its contents?" href="${reverse_with_get('filebrowser.views.rmtree', get=dict(path=path,next=current_request_path))}"">Delete</a></li>
+                    <li class="fb-rmdir-container"><a class="fb-rmdir confirm_and_post" alt="Are you sure you want to delete this directory and its contents?" href="${reverse_with_get('filebrowser.views.rmdir', get=dict(path=path,next=current_request_path), do_not_escape=True)}">Delete</a></li>
+                    <li class="fb-rmtree-container"><a class="fb-rmtree confirm_and_post fb-default-rm" alt="Are you sure you want to delete ${display_name} and its contents?" href="${reverse_with_get('filebrowser.views.rmtree', get=dict(path=path,next=current_request_path), do_not_escape=True)}"">Delete</a></li>
                   % else:
                     <li><a class="fb-viewfile" href="${url('filebrowser.views.view', path=urlencode(path))}" target="FileViewer">View File</a></li>
                     <li><a class="fb-editfile" href="${url('filebrowser.views.edit', path=urlencode(path))}" target="FileEditor">Edit File</a></li>
                     <li><a class="fb-downloadfile" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a></li>
-                    <li class="fb-rm-container"><a class="fb-rm fb-default-rm confirm_and_post" alt="Are you sure you want to delete ${display_name}?" href="${reverse_with_get('filebrowser.views.remove', get=dict(path=path, next=current_request_path))}">Delete</a></li>
+                    <li class="fb-rm-container"><a class="fb-rm fb-default-rm confirm_and_post" alt="Are you sure you want to delete ${display_name}?" href="${reverse_with_get('filebrowser.views.remove', get=dict(path=path, next=current_request_path), do_not_escape=True)}">Delete</a></li>
                   % endif
-                  <li class="fb-rename-container"><a class="fb-rename" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path))}">Rename</a></li>
-                  <li class="fb-chown-container"><a class="fb-chown" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a></li>
-                  <li class="fb-chmod-container"><a class="fb-chmod" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a></li>
+                  <li class="fb-rename-container"><a class="fb-rename" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path), do_not_escape=False)}">Rename</a></li>
+                  <li class="fb-chown-container"><a class="fb-chown" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path),do_not_escape=False)}">Change Owner / Group</a></li>
+                  <li class="fb-chmod-container"><a class="fb-chmod" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path), do_not_escape=False)}">Change Permissions</a></li>
                   <%
                     if "dir" == file['type']:
                       cls = "fb-move-dir"
                     else:
                       cls = "fb-move-file"
                   %>
-                  <li><a class="fb-move ${cls}" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a></li>
+                  <li><a class="fb-move ${cls}" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path), do_not_escape=False)}">Move</a></li>
               </ul>
               % endif
             </div>
