@@ -18,10 +18,12 @@ CC := gcc
 CFLAGS := -Werror -Wall
 DESTDIR := build
 
-setuid: setuid.c
-	mkdir -p $(DESTDIR)
-	$(CC) $(CFLAGS) $< -o $(DESTDIR)/$@
-	chmod 4711 $(DESTDIR)/$@
+default: $(DESTDIR)/setuid
+
+$(DESTDIR)/setuid: setuid.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $< -o $@
+	chmod 4711 $@
 
 clean:
 	rm -rf $(DESTDIR)
