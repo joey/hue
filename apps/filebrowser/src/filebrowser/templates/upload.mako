@@ -31,7 +31,7 @@ ${wrappers.head('Upload Files', 'upload')}
 </form>
 </div>
 
-<div>Go back to where you were: <a href="${next|u}">${next}</a>.</div>
+<span class="alert-message block-message info">Go back to where you were: <a href="${next|u}">${next}</a>.</span>
 
 
 ${wrappers.foot()}
