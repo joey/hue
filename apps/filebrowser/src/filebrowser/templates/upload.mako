@@ -20,15 +20,18 @@ ${wrappers.head('Upload Files', 'upload')}
 <div class="prompt_popup">
 <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data">
   <h4 class="jframe-hidden">Upload Files</h4>
-  <dl>
-    ${edit.render_field(form["dest"], hidden=True)}
-    ${edit.render_field(form["hdfs_file"], render_default=True, notitle=True)}
-  </dl>
-  <input class="jframe-hidden" type="submit" value="Submit" />
+  <div class="well">
+    <input type="hidden" name="dest" value="/tmp" id="id_dest" />
+
+    <h4 style="display: inline;">File to Upload</h4>
+    <input class="input-file" style="display:inline; background-color: transparent;" type="file" name="hdfs_file" id="id_hdfs_file" />
+    <input class="btn" type="submit" value="Submit" />
+  </div>
+
 </form>
 </div>
 
-<div class="jframe-hidden">Go back to where you were: <a href="${next|u}">${next}</a>.</div>
+<div>Go back to where you were: <a href="${next|u}">${next}</a>.</div>
 
 
 ${wrappers.foot()}

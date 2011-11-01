@@ -73,8 +73,8 @@
   % if field.is_hidden:
     ${unicode(field) | n}
   % else:
-    <dt class="${titlecls}" ${make_attr_str(dt_attrs) | n}>${field.label_tag() | n}</dt>
-    <dd class="${cls}" ${make_attr_str(dd_attrs) | n}>
+    <div ${make_attr_str(dt_attrs) | n}>${field.label_tag() | n}</div>
+    <div ${make_attr_str(dd_attrs) | n}>
       % if render_default:
         ${unicode(field) | n}
       % else:
@@ -91,11 +91,11 @@
       % if help:
         <p class="jframe-inline" data-filters="HelpTip" ${make_attr_str(help_attrs) | n}>${help}</p>
       % endif
-    </dd>
+    </div>
     % if len(field.errors):
-      <dd class="beeswax_error jframe-error">
+      <div class="beeswax_error jframe-error">
          ${unicode(field.errors) | n}
-       </dd>
+      </div>
     % endif
   % endif
 </%def>
