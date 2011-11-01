@@ -107,7 +107,7 @@ def is_home(path):
                           % if show_upload:
                             <li><a class="${is_selected(section, 'upload')}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
                           % endif
-                          <li><a class="fb-mkdir" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
+                          <li><a class="${is_selected(section, 'new directory')}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
                         % endif
                      % endif
 				</ul>

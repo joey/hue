@@ -14,13 +14,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 <%namespace name="edit" file="editor_components.mako" />
-<%namespace name="comps" file="fb_components.mako" />
-${comps.header('Create Directory')}
+<%namespace name="wrappers" file="header_footer.mako" />
+${wrappers.head('Create Directory', 'new directory')}
 
 
 <div class="prompt_popup">
 <form action="/filebrowser/mkdir?next=${next|u}" method="POST" enctype="multipart/form-data">
-  <h4 class="jframe-hidden">Create Directory}</h4>
+  <h4 class="jframe-hidden">Create Directory</h4>
   <dl>
     ${edit.render_field(form["path"], hidden=True)}
     ${edit.render_field(form["name"])}
@@ -32,4 +32,4 @@ ${comps.header('Create Directory')}
 <div class="jframe-hidden">Go back to where you were: <a href="${next|u}">${next}</a>.</div>
 
 
-${comps.footer()}
+${wrappers.foot()}
