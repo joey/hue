@@ -37,7 +37,7 @@ def is_home(path):
         return ""
 %>
 
-<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True)">
+<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True, show_new_directory=True)">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -107,7 +107,9 @@ def is_home(path):
                           % if show_upload:
                             <li><a class="${is_selected(section, 'upload')}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
                           % endif
-                          <li><a class="${is_selected(section, 'new directory')}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
+                          % if show_new_directory:
+                            <li><a class="${is_selected(section, 'new directory')}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
+                          %endif
                         % endif
                      % endif
 				</ul>

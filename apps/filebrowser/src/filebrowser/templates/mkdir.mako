@@ -15,7 +15,7 @@
 ## limitations under the License.
 <%namespace name="edit" file="editor_components.mako" />
 <%namespace name="wrappers" file="header_footer.mako" />
-${wrappers.head('Create Directory', 'new directory')}
+${wrappers.head('Create Directory', 'new directory', show_upload=False)}
 
 
 <div class="prompt_popup">

@@ -15,7 +15,7 @@
 ## limitations under the License.
 <%namespace name="edit" file="editor_components.mako" />
 <%namespace name="wrappers" file="header_footer.mako" />
-${wrappers.head('Upload Files', 'upload')}
+${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
 
 <div class="prompt_popup">
 <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data">
@@ -31,7 +31,7 @@ ${wrappers.head('Upload Files', 'upload')}
 </form>
 </div>
 
-<span class="alert-message block-message info">Go back to where you were: <a href="${next|u}">${next}</a>.</span>
+<span class="alert-message block-message info">Go back to where you were: <a href="/filebrowser/view${next}">${next}</a>.</span>
 
 
 ${wrappers.foot()}
