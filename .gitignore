@@ -12,6 +12,9 @@
 # emacs backup files
 .*~
 
+#PyCharm project files
+*.idea
+
 # Build directory and environment
 build
 env
