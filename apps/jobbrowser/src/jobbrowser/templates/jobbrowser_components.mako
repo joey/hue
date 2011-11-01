@@ -60,6 +60,7 @@
 				<a class="brand" href="#">jHue</a>
 				<ul class="nav">
 					<li><a href="/beeswax/">Beeswax</a></li>
+                    <li><a href="/filebrowser/">File Browser</a></li>
 					<li class="active"><a href="/jobbrowser/jobs/">Job Browser</a></li>
 					<li><a href="/jobsub/">Job Designer</a></li>
 				</ul>

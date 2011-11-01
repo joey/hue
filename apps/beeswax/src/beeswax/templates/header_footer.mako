@@ -72,6 +72,7 @@ def is_selected(section, matcher):
 				<a class="brand" href="#">jHue</a>
 				<ul class="nav">
 					<li class="active"><a href="/beeswax">Beeswax</a></li>
+                    <li><a href="/filebrowser/">File Browser</a></li>
 					<li><a href="/jobbrowser/jobs/">Job Browser</a></li>
 					<li><a href="/jobsub/">Job Designer</a></li>
 				</ul>
