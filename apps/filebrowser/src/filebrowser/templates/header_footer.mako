@@ -29,7 +29,7 @@ def is_selected(section, matcher):
     return ""
 %>
 
-<%def name="head(title='Beeswax for Hive', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True)">
+<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True)">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -89,25 +89,19 @@ def is_selected(section, matcher):
 			<div class="container-fluid">
 				<ul class="nav">
                      % if toolbar:
-                         % if current_request_path:
-
-                            % if home_directory:
-                              <% my_home_disabled = "" %>
-                            % else:
-                              <% my_home_disabled = "disabled" %>
-                            % endif
-                            <li><a class="fb-home ${my_home_disabled}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
-                            % if cwd_set:
-                              % if show_upload:
-                                <li><a class="fb-upload" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
-                              % endif
-                              <li><a class="fb-mkdir" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
-                            % endif
-                          
+                        % if home_directory:
+                          <% my_home_disabled = "" %>
+                        % else:
+                          <% my_home_disabled = "disabled" %>
                         % endif
-
+                        <li><a class="fb-home ${my_home_disabled}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
+                        % if cwd_set:
+                          % if show_upload:
+                            <li><a class="fb-upload ${is_selected(section, 'upload')}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
+                          % endif
+                          <li><a class="fb-mkdir" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
+                        % endif
                      % endif
-
 				</ul>
 			</div>
 		</div>
@@ -133,35 +127,7 @@ def is_selected(section, matcher):
     <title>${title}</title>
   </head>
   <body class="hue-shared">
-  <div class="toolbar">
-    <a href="${ url('beeswax.views.index') }"><img src="/beeswax/static/art/beeswax-logo.png" width="55" height="55" alt="Beeswax" class="beeswax_logo"></a>
-    % if toolbar:
-    <ul class="bw-nav" data-filters="ArtButtonBar">
-      <li><a href="${ url('beeswax.views.execute_query') }"
-        class="bw-nav_icon bw-query_nav ${is_selected(section, 'query')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">Query Editor</a></li>
-      <li><a href="${ url('beeswax.views.my_queries') }"
-        class="bw-nav_icon bw-my_queries_nav ${is_selected(section, 'my queries')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">My Queries</a></li>
-      <li><a href="${ url('beeswax.views.list_designs') }"
-        class="bw-nav_icon bw-queries_nav ${is_selected(section, 'saved queries')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">Saved Queries</a></li>
-    ## <li><a href="${ url('beeswax.views.edit_report') }" class="bw-nav_icon bw-new_report_gen_nav ${is_selected(section, 'report generator')}" data-filters="ArtButton" data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">Report Generator</a></li>
-      <li><a href="${ url('beeswax.views.list_query_history') }"
-        class="bw-nav_icon bw-history_nav ${is_selected(section, 'history')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">History</a></li>
-      <li><a href="${ url('beeswax.views.show_tables') }"
-        class="bw-nav_icon bw-tables_nav ${is_selected(section, 'tables')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">Tables</a></li>
-      <li><a href="${ url('beeswax.views.configuration') }"
-        class="bw-nav_icon bw-config_nav ${is_selected(section, 'hive configuration')}" data-filters="ArtButton"
-        data-icon-styles="{'width': 16, 'height': 16, 'top': 4, 'left': 5}">Settings</a>
-      </li>
-      <li><a class="jframe-refresh large" data-filters="ArtButton">Refresh</a></li>
-    </ul>
-    % endif
-  </div>
-  <hr class="jframe-hidden"/>
+  
 </%def>
 
 <%def name="footz()">
