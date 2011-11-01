@@ -29,6 +29,14 @@ def is_selected(section, matcher):
     return ""
 %>
 
+<%!
+def is_home(path):
+    if path == "/":
+        return "selected"
+    else:
+        return ""
+%>
+
 <%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True)">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -94,10 +102,10 @@ def is_selected(section, matcher):
                         % else:
                           <% my_home_disabled = "disabled" %>
                         % endif
-                        <li><a class="fb-home ${my_home_disabled}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
+                        <li><a class="${is_home(path)}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
                         % if cwd_set:
                           % if show_upload:
-                            <li><a class="fb-upload ${is_selected(section, 'upload')}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
+                            <li><a class="${is_selected(section, 'upload')}" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
                           % endif
                           <li><a class="fb-mkdir" data-filters="ArtButton" data-icon-styles="{'width' : 16, 'height': 16}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
                         % endif
