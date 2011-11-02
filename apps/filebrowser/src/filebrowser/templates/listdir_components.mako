@@ -105,24 +105,18 @@ from desktop.lib.django_util import reverse_with_get
              % if ".." != file['name']:
 
                   % if "dir" == file['type']:
-                    <a class="fb-rmdir confirm_unencode_and_post btn danger small" alt="Are you sure you want to delete this directory and its contents?" href="${reverse_with_get('filebrowser.views.rmdir', get=dict(path=path,next=current_request_path))}">Delete</a></li>
-                    <a class="fb-rmtree confirm_unencode_and_post fb-default-rm btn danger small" alt="Are you sure you want to delete ${display_name} and its contents?" href="${reverse_with_get('filebrowser.views.rmtree', get=dict(path=path,next=current_request_path))}"">Delete</a>
+                    <a class="btn danger small" href="${reverse_with_get('filebrowser.views.rmdir', get=dict(path=path,next=current_request_path))}">Delete</a></li>
+                    <a class="btn danger small" href="${reverse_with_get('filebrowser.views.rmtree', get=dict(path=path,next=current_request_path))}"">Delete Recursively</a>
                   % else:
-                    <a class="fb-viewfile btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
-                    <a class="fb-editfile btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
-                    <a class="fb-downloadfile btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
-                    <a class="fb-rm fb-default-rm confirm_unencode_and_post btn small" alt="Are you sure you want to delete ${display_name}?" href="${reverse_with_get('filebrowser.views.remove', get=dict(path=path, next=current_request_path))}">Delete</a>
+                    <a class="btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
+                    <a class="btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
+                    <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
+                    <a class="btn small" href="${reverse_with_get('filebrowser.views.remove', get=dict(path=path, next=current_request_path))}">Delete</a>
                   % endif
-                  <a class="fb-rename btn small" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path))}">Rename</a>
-                  <a class="fb-chown btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
-                  <a class="fb-chmod btn small" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a>
-                  <%
-                    if "dir" == file['type']:
-                      cls = "fb-move-dir"
-                    else:
-                      cls = "fb-move-file"
-                  %>
-                  <a class="fb-move ${cls} btn small" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a>
+                  <a class="btn small" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path))}">Rename</a>
+                  <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
+                  <a class="btn small" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a>
+                  <a class="btn small" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a>
 
               % endif
           </td>
