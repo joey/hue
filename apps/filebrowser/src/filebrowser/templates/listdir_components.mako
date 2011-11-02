@@ -40,7 +40,7 @@ from desktop.lib.django_util import reverse_with_get
   else:
     optional_fit_text = ''
   %>
-  <table data-filters="HtmlTable"class="zebra-striped">
+  <table class="datatables">
     <thead>
       <tr>
         % if cwd_set:
@@ -52,7 +52,8 @@ from desktop.lib.django_util import reverse_with_get
         <th>User</th>
         <th>Group</th>
         <th>Permissions</th>
-        <th colspan="2">Date</th>
+        <th>Date</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -129,4 +130,14 @@ from desktop.lib.django_util import reverse_with_get
       % endfor
     </tbody>
   </table>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		$(".datatables").dataTable({
+			"bPaginate": false,
+		    "bLengthChange": false,
+		    "bFilter": false,
+			"bInfo": false
+		});
+	});
+</script>
 </%def>
