@@ -18,20 +18,19 @@
 ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
 
 <div class="prompt_popup">
-<form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data">
-  <h4 class="jframe-hidden">Upload Files</h4>
-  <div class="well">
-    <input type="hidden" name="dest" value="/tmp" id="id_dest" />
+    <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data">
+      <h1>Upload Files</h1>
+      <div class="well">
+        <input type="hidden" name="dest" value="/tmp" id="id_dest" />
 
-    <h4 style="display: inline;">File to Upload</h4>
-    <input class="input-file" style="display:inline; background-color: transparent;" type="file" name="hdfs_file" id="id_hdfs_file" />
-    <input class="btn" type="submit" value="Submit" />
-  </div>
-
-</form>
+        <h4>File to Upload</h4>
+        <input class="input-file" style="background-color: transparent;" type="file" name="hdfs_file" id="id_hdfs_file" />
+        <div>
+            <input class="btn primary" type="submit" value="Submit" />
+            <a class="btn" href="/filebrowser/view${next}">Cancel</a>
+        </div>
+      </div>
+    </form>
+    <!--<span class="alert-message block-message info">Go back to where you were: <a href="/filebrowser/view${next}">${next}</a>.</span>-->
 </div>
-
-<span class="alert-message block-message info">Go back to where you were: <a href="/filebrowser/view${next}">${next}</a>.</span>
-
-
 ${wrappers.foot()}
