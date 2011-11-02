@@ -16,11 +16,9 @@
 <%namespace name="edit" file="editor_components.mako" />
 <%namespace name="wrappers" file="header_footer.mako" />
 ${wrappers.head('Create Directory', 'new directory', show_upload=False)}
-
-
-<div class="prompt_popup">
+<h1>Create Directory</h1>
 <form action="/filebrowser/mkdir?next=${next|u}" method="POST" enctype="multipart/form-data" class="form-stacked">
-  <h1>Create Directory</h1>
+
   <div class="well">
 
     ${edit.render_field(form["name"])}
@@ -32,7 +30,6 @@ ${wrappers.head('Create Directory', 'new directory', show_upload=False)}
   </div>
 
 </form>
-</div>
 
 <!--<div class="jframe-hidden">Go back to where you were: <a href="${next|u}">${next}</a>.</div>-->
 

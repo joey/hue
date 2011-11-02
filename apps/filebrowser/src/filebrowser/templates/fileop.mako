@@ -22,9 +22,15 @@ from django.template.defaultfilters import urlencode, escape, stringformat, date
 ${wrappers.head('File Operation')}
 <h1>${form.op}</h1>
 ## Not sure if enctype breaks anything if used for things other than file upload.
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" enctype="multipart/form-data" class="form-stacked">
+<div class="well">
+
 ${form.as_p()|n}
-<input type="submit" value="Submit" />
-Go back to where you were: <a href="${urlencode(next)}">${next}</a>.
+<div>
+<input type="submit" value="Submit" class="btn primary" />
+<a href="${urlencode(next)}" class="btn">Cancel</a>
+</div>
+
+</div>
 </form>
 ${wrappers.foot()}

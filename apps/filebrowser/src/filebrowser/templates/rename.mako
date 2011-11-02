@@ -17,19 +17,15 @@
 <%namespace name="wrappers" file="header_footer.mako" />
 ${wrappers.head('Rename: ' + src_path.split('/')[-1])}
 
-
-<div class="prompt_popup">
-<form action="/filebrowser/rename?next=${next|u}" method="POST" enctype="multipart/form-data">
-  <h4 class="jframe-hidden">Renaming: ${src_path}</h4>
-  <dl>
+<h1>Renaming: ${src_path}</h1>
+<form action="/filebrowser/rename?next=${next|u}" method="POST" enctype="multipart/form-data" class="form-stacked">
+  <div class="well">
     ${edit.render_field(form["src_path"], hidden=True)}
     ${edit.render_field(form["dest_path"], notitle=True)}
-  </dl>
-  <input class="jframe-hidden" type="submit" value="Submit" />
+      <div>
+        <input class="btn primary" type="submit" value="Submit" />
+        <a class="btn" href="${next|u}">Cancel</a>
+      </div>
+  </div>
 </form>
-</div>
-
-<div class="jframe-hidden">Go back to where you were: <a href="${next|u}">${next}</a>.</div>
-
-
 ${wrappers.foot()}

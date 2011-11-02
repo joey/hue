@@ -17,9 +17,9 @@
 <%namespace name="wrappers" file="header_footer.mako" />
 ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
 
-<div class="prompt_popup">
+<h1>Upload Files</h1>
     <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data" class="form-stacked">
-      <h1>Upload Files</h1>
+
       <div class="well">
         ${edit.render_field(form["hdfs_file"], render_default=True, notitle=True)}
         ${edit.render_field(form["dest"], hidden=True)}
@@ -30,5 +30,5 @@ ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
       </div>
     </form>
     <!--<span class="alert-message block-message info">Go back to where you were: <a href="/filebrowser/view${next}">${next}</a>.</span>-->
-</div>
+
 ${wrappers.foot()}
