@@ -37,7 +37,7 @@ def is_home(path):
         return ""
 %>
 
-<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=True, show_new_directory=True)">
+<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=False, show_new_directory=False)">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
