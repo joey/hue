@@ -18,13 +18,11 @@
 ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
 
 <div class="prompt_popup">
-    <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data">
+    <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data" class="form-stacked">
       <h1>Upload Files</h1>
       <div class="well">
-        <input type="hidden" name="dest" value="/tmp" id="id_dest" />
-
-        <h4>File to Upload</h4>
-        <input class="input-file" style="background-color: transparent;" type="file" name="hdfs_file" id="id_hdfs_file" />
+        ${edit.render_field(form["hdfs_file"], render_default=True, notitle=True)}
+        ${edit.render_field(form["dest"], hidden=True)}
         <div>
             <input class="btn primary" type="submit" value="Submit" />
             <a class="btn" href="/filebrowser/view${next}">Cancel</a>
