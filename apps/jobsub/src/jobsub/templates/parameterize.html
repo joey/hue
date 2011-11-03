@@ -33,7 +33,11 @@ limitations under the License.
     </div>
     <div class="content">
         {{ form.render_parameterization }}
-        <input type="submit" name="submitter" value="Start Job" class="btn primary"/>
+        <div style="padding-top: 10px;">
+            <input type="submit" name="submitter" value="Start Job" class="btn primary"/>
+            <a href="/jobsub/" class="btn">Cancel</a>
+        </div>
+
     </div>
     </div>
 </form>
