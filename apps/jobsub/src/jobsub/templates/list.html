@@ -45,12 +45,13 @@ limitations under the License.
                 </div>
             </form>
 
-            <table class="zebra-striped" cellpadding="0" cellspacing="0">
+            <table class="datatables" cellpadding="0" cellspacing="0">
                 <thead>
                 <tr>
                     <th>Owner</th>
                     <th>Name</th>
-                    <th colspan="2">Last Modified</th>
+                    <th>Last Modified</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,4 +88,14 @@ limitations under the License.
     </div>
 
 </div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $(".datatables").dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bInfo": false
+        });
+    });
+</script>
 {% endblock %}
