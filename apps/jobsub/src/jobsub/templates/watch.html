@@ -46,6 +46,7 @@ limitations under the License.
             <span class="jobsub_actual_date" style="display: none">{{ submission.submission_date|date:"U" }}</span>
             {{ submission.submission_date|timesince }} ago
         </td>
+
         <td>
         {%if submission.last_seen_state_as_string == "SUCCESS" %}
             <span class="label success">{{ submission.last_seen_state_as_string }}</span>
