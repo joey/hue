@@ -15,12 +15,14 @@
 ## limitations under the License.
 <%namespace name="edit" file="editor_components.mako" />
 <%namespace name="wrappers" file="header_footer.mako" />
-${wrappers.head('Change Permissions: ' + path.split('/')[-1])}
+${wrappers.head('Change Permissions: ' + path.split('/')[-1], show_side_bar=False)}
 
-<h1 class="jframe-hidden">Change Permissions: ${path}</h1>
-<form action="/filebrowser/chmod?next=${next|u}" method="POST" enctype="multipart/form-data">
+
+
 
   <div class="well">
+    <form action="/filebrowser/chmod?next=${next|u}" method="POST" enctype="multipart/form-data">
+    <h1 class="jframe-hidden">Change Permissions: ${path}</h1>
     ${edit.render_field(form["path"], hidden=True)}
     <table class="zebra-striped"
             style="background-color: #ffffff;">
@@ -57,6 +59,7 @@ ${wrappers.head('Change Permissions: ' + path.split('/')[-1])}
         <input class="btn primary" type="submit" value="Submit" />
         <a class="btn" href="${next|u}">Cancel</a>
     </div>
+    </form>
   </div>
-</form>
+
 ${wrappers.foot()}

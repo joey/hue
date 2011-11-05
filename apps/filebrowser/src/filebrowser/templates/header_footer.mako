@@ -37,7 +37,7 @@ def is_home(path):
         return ""
 %>
 
-<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=False, show_new_directory=False)">
+<%def name="head(title='Beeswax for Hive', section='', path='', current_request_path=False, toolbar=True, cwd_set=True, show_upload=False, show_new_directory=False, show_side_bar=True)">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -96,11 +96,23 @@ def is_home(path):
 			</div>
 		</div>
 	</div>
+    % if breadcrumbs:
 	<div class="menubar">
 		<div class="menubar-inner">
-			<div class="container-fluid">
-				<ul class="nav">
-                     % if toolbar:
+			<ul class="breadcrumb">
+                % for breadcrumb_item in breadcrumbs:
+                <li><a href="/filebrowser/view${breadcrumb_item['url']}">${breadcrumb_item['label']}</a> <span class="divider">/</span></li>
+                % endfor
+            </ul>
+		</div>
+	</div>
+    %endif
+
+	<div class="container-fluid">
+        % if show_side_bar:
+         <div class="sidebar">
+            <div class="well">
+                 % if toolbar:
                         % if home_directory:
                           <% my_home_disabled = "" %>
                         % else:
@@ -116,13 +128,9 @@ def is_home(path):
                           %endif
                         % endif
                      % endif
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="container-fluid">
-
+            </div>
+        </div>
+        % endif
 </%def>
 
 <%def name="foot()">

@@ -21,14 +21,15 @@ from django.template.defaultfilters import escape, stringformat, date, time
 <%namespace name="dir" file="listdir_components.mako" />
 ${wrappers.head('File Browser', '', path, current_request_path, cwd_set=cwd_set, show_upload=show_upload, show_new_directory=True)}
 
-  <div id="dirlist" class="view">
-    <ul class="breadcrumb">
-      % for breadcrumb_item in breadcrumbs:
-      <li><a href="/filebrowser/view${breadcrumb_item['url']}">${breadcrumb_item['label']}</a> <span class="divider">/</span></li>
-      % endfor
 
-    </ul>
+   
+    <div class="content">
+        <div id="dirlist" class="view">
+        ${dir.list_table_browser(files, path_enc, current_request_path, cwd_set)}
+        </div>
+    </div>
 
-    ${dir.list_table_browser(files, path_enc, current_request_path, cwd_set)}
-  </div>
+
+
+
 ${wrappers.foot()}
