@@ -72,7 +72,7 @@
 
 
 ${wrappers.head('Hive Query', section='query')}
-<div class="sidebar">
+<div class="sidebar" >
 	<div class="well">
 	<form id="advancedSettingsForm" action="${action}" method="POST" class="form-stacked noPadding">
 		<h4>Advanced settings</h4>
