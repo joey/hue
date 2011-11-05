@@ -114,18 +114,13 @@ def is_home(path):
          <div class="sidebar">
             <div class="well">
                  % if toolbar:
-                        % if home_directory:
-                          <% my_home_disabled = "" %>
-                        % else:
-                          <% my_home_disabled = "disabled" %>
-                        % endif
-                        <li><a class="${is_home(path)}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
+                        
                         % if cwd_set:
                           % if show_upload:
-                            <li><a class="${is_selected(section, 'upload')} upload-link" href="#">Upload Files</a></li>
+                            <li><a class="upload-link" href="#">Upload Files</a></li>
                           % endif
                           % if show_new_directory:
-                            <li><a class="${is_selected(section, 'new directory')}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>
+                            <li><a class="create-directory-link" href="#">New Directory</a></li>
                           %endif
                         % endif
                      % endif

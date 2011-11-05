@@ -182,7 +182,6 @@ from desktop.lib.django_util import reverse_with_get
 </div>
 
 <!-- upload modal -->
-
 <div id="upload-modal" class="modal hide fade">
     <form id="upload-form" action="/filebrowser/rename?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
     <div class="modal-header">
@@ -205,6 +204,31 @@ from desktop.lib.django_util import reverse_with_get
     </div>
     </form>
 </div>
+
+
+<!-- create directory modal -->
+<div id="create-directory-modal" class="modal hide fade">
+    <form action="/filebrowser/mkdir?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Create Directory</h3>
+    </div>
+    <div class="modal-body">
+        <div class="clearfix">
+            <label>Directory Name</label>
+            <div class="input">
+                <input name="name" value="" type='text'/>
+                <input type="hidden" name="path" type='text' value="${current_dir_path}"/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input class="btn primary" type="submit" value="Submit" />
+        <a id="cancel-create-directory-button" class="btn" href="%2Ffilebrowser%2Fview%2F">Cancel</a>
+    </div>
+    </form>
+</div>
+
 
 
 <script type="text/javascript" charset="utf-8">
@@ -268,6 +292,11 @@ from desktop.lib.django_util import reverse_with_get
     //upload handlers
     $('.upload-link').click(function(){
         $('#upload-modal').modal('show');
+    })
+
+    //create directory handlers
+    $('.create-directory-link').click(function(){
+        $('#create-directory-modal').modal('show');
     })
 
 </script>
