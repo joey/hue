@@ -224,7 +224,7 @@ from desktop.lib.django_util import reverse_with_get
     </div>
     <div class="modal-footer">
         <input class="btn primary" type="submit" value="Submit" />
-        <a id="cancel-create-directory-button" class="btn" href="%2Ffilebrowser%2Fview%2F">Cancel</a>
+        <a id="cancel-create-directory-button" class="btn" href="#">Cancel</a>
     </div>
     </form>
 </div>
@@ -297,6 +297,9 @@ from desktop.lib.django_util import reverse_with_get
     //create directory handlers
     $('.create-directory-link').click(function(){
         $('#create-directory-modal').modal('show');
+    })
+    $('#cancel-create-directory-button').click(function(){
+        $('#create-directory-modal').modal('hide');
     })
 
 </script>
