@@ -284,9 +284,22 @@ def listdir(request, path, chooser):
   assert file_filter in ['any', 'file', 'dir']
 
   home_dir_path = request.user.get_home_directory()
+
+  breadcrumbs_parts = path.split('/')
+  i = 1
+  breadcrumbs = [{'url':'', 'label':'my home'}]
+  while (i < len(breadcrumbs_parts)):
+      breadcrumb_url = breadcrumbs[i-1]['url'] + '/' + breadcrumbs_parts[i]
+      if breadcrumb_url != '/':
+        breadcrumbs.append({'url':breadcrumb_url, 'label': breadcrumbs_parts[i]})
+      i = i + 1
+
+
+
   data = {
     'path': path,
     'file_filter': file_filter,
+    'breadcrumbs': breadcrumbs,
     # These could also be put in automatically via
     # http://docs.djangoproject.com/en/dev/ref/templates/api/#django-core-context-processors-request,
     # but manually seems cleaner, since we only need it here.
