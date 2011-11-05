@@ -40,6 +40,13 @@ from desktop.lib.django_util import reverse_with_get
   else:
     optional_fit_text = ''
   %>
+  <style type="text/css">
+    .form-padding-fix{
+        display: inline;
+        padding: 0;
+        margin: 0;
+    }
+  </style>
   <table class="datatables">
     <thead>
       <tr>
@@ -113,7 +120,7 @@ from desktop.lib.django_util import reverse_with_get
                     <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
                     <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
                   % endif
-                  <a class="btn small" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path))}">Rename</a>
+                  <a class="btn small rename" file-to-rename="${path}">Rename</a>
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a>
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a>
@@ -124,7 +131,7 @@ from desktop.lib.django_util import reverse_with_get
       % endfor
     </tbody>
   </table>
-
+<!-- delete modal -->
 <div id="delete-modal" class="modal hide fade">
 
     <div class="modal-header">
@@ -143,6 +150,34 @@ from desktop.lib.django_util import reverse_with_get
     </div>
 
 </div>
+<!-- rename modal -->
+
+<div id="rename-modal" class="modal hide fade">
+    <form id="rename-form" action="/filebrowser/rename?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Renaming: <span id="rename-file-name">file name</span></h3>
+    </div>
+    <div class="modal-body">
+        <div class="clearfix">
+            <label>New name</label>
+            <div class="input">
+                <input name="dest_path" value="" type='text'/>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+
+
+        <input id="rename_src_path" type="hidden" name="src_path" type='text' value="/tmp"/>
+        <input type="submit" value="Submit" class="btn primary" />
+        <a id="cancel-rename-button" class="btn">Cancel</a>
+
+    </div>
+    </form>
+</div>
+
 
 <script type="text/javascript" charset="utf-8">
 
@@ -156,7 +191,7 @@ from desktop.lib.django_util import reverse_with_get
 		});
 	});
 
-    
+    //delete handlers
     $(".delete").click(function(eventObject){
         $('#file-to-delete-input').attr('value', $(eventObject.target).attr('file-to-delete'));
         $('#delete-form').attr('action', '/filebrowser/' + $(eventObject.target).attr('delete-type') + '?next=' + encodeURI('${current_request_path}') + '&path=' + encodeURI('${path}'));
@@ -167,5 +202,15 @@ from desktop.lib.django_util import reverse_with_get
         $('#delete-modal').modal('hide');
     })
 
+    //rename handlers
+    $(".rename").click(function(eventObject){
+        $('#rename_src_path').attr('value', $(eventObject.target).attr('file-to-rename'));
+        $('#rename-file-name').text($(eventObject.target).attr('file-to-rename'));
+        $('#rename-modal').modal('show');
+    })
+
+    $('#cancel-rename-button').click(function(){
+        $('#rename-modal').modal('hide');
+    })
 </script>
 </%def>
