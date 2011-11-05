@@ -24,7 +24,7 @@ ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
     <form action="/filebrowser/upload?next=${next|u}" method="POST" enctype="multipart/form-data" class="form-stacked">
 
       <div class="well">
-         <div id="file-uploader-demo1">
+         <div id="file-uploader">
 		<noscript>
 			<p>Please enable JavaScript to use file uploader.</p>
 			<!-- or put a simple form for upload here -->
@@ -38,11 +38,14 @@ ${wrappers.head('Upload Files', 'upload', show_new_directory=False)}
  <script>
         function createUploader(){
             var uploader = new qq.FileUploader({
-                element: document.getElementById('file-uploader-demo1'),
+                element: document.getElementById('file-uploader'),
                 action: '/filebrowser/upload',
                 params:{
                     dest: '${next}',
                     fileFieldLabel: 'hdfs_file'
+                },
+                onComplete:function(id, fileName, responseJSON){
+                    window.location = "/filebrowser/view${next}";
                 },
                 debug: true
             });
