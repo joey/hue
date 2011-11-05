@@ -63,6 +63,8 @@ def is_home(path):
 	<script src="/static/ext/js/jquery/plugins/jquery.ocupload-1.1.2.packed.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/static/ext/js/bootstrap-tabs.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/ext/js/bootstrap-modal.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/ext/js/bootstrap-alerts.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/ext/js/bootstrap-dropdown.js" type="text/javascript" charset="utf-8"></script>
 
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function(){

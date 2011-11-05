@@ -114,21 +114,21 @@ from desktop.lib.django_util import reverse_with_get
           <td><span>${date(datetime.datetime.fromtimestamp(file['stats']['mtime']))} ${time(datetime.datetime.fromtimestamp(file['stats']['mtime']))}</span></td>
           <td>
              % if ".." != file['name']:
+                % if "dir" == file['type']:
+                  <a class="btn danger small delete" delete-type="rmdir" file-to-delete="${path}" data-backdrop="true" data-keyboard="true">Delete</a></li>
+                  <a class="btn danger small delete" delete-type="rmtree" file-to-delete="${path}" >Delete Recursively</a>
+                % else:
+                  <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
+                  <a class="btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
+                  <a class="btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
+                  <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
 
-                  % if "dir" == file['type']:
-                    <a class="btn danger small delete" delete-type="rmdir" file-to-delete="${path}" data-backdrop="true" data-keyboard="true">Delete</a></li>
-                    <a class="btn danger small delete" delete-type="rmtree" file-to-delete="${path}" >Delete Recursively</a>
-                  % else:
-                    <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
-                    <a class="btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
-                    <a class="btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
-                    <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
+                % endif
+                <a class="btn small rename" file-to-rename="${path}">Rename</a>
+                <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
+                <a class="btn small" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a>
+                <a class="btn small" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a>
 
-                  % endif
-                  <a class="btn small rename" file-to-rename="${path}">Rename</a>
-                  <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
-                  <a class="btn small" href="${reverse_with_get('filebrowser.views.chmod',get=dict(path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Change Permissions</a>
-                  <a class="btn small" href="${reverse_with_get('filebrowser.views.move',get=dict(src_path=path,mode=stringformat(file['stats']['mode'], "o"),next=current_request_path))}">Move</a>
 
               % endif
           </td>
@@ -210,7 +210,7 @@ from desktop.lib.django_util import reverse_with_get
 
 <!-- create directory modal -->
 <div id="create-directory-modal" class="modal hide fade">
-    <form action="/filebrowser/mkdir?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
+    <form id="create-directory-form" action="/filebrowser/mkdir?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
     <div class="modal-header">
         <a href="#" class="close">&times;</a>
         <h3>Create Directory</h3>
@@ -219,12 +219,17 @@ from desktop.lib.django_util import reverse_with_get
         <div class="clearfix">
             <label>Directory Name</label>
             <div class="input">
-                <input name="name" value="" type='text'/>
+                <input id="new-directory-name-input" name="name" value="" type='text'/>
                 <input type="hidden" name="path" type='text' value="${current_dir_path}"/>
             </div>
         </div>
+
     </div>
     <div class="modal-footer">
+         <div id="directory-name-required-alert" class="alert-message warning hide" style="position: absolute; left: 10;">
+
+            <p><strong>Sorry, directory name is required.</strong>
+        </div>
         <input class="btn primary" type="submit" value="Submit" />
         <a id="cancel-create-directory-button" class="btn" href="#">Cancel</a>
     </div>
@@ -303,6 +308,14 @@ from desktop.lib.django_util import reverse_with_get
     $('#cancel-create-directory-button').click(function(){
         $('#create-directory-modal').modal('hide');
     })
+    $('#create-directory-form').submit(function(){
+        
+        if($('#new-directory-name-input').val()==''){
+            $('#directory-name-required-alert').alert().removeClass('hide').addClass('in');
+            return false;
+        }
+
+    })
 
     //filter handlers
     $('#filter-input').keyup(function(){
@@ -324,7 +337,7 @@ from desktop.lib.django_util import reverse_with_get
             $(value).removeClass('fade').removeClass('hide');
         });
     })
-
+ 
 </script>
 
 </%def>
