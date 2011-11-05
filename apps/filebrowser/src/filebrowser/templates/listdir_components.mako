@@ -167,13 +167,16 @@ from desktop.lib.django_util import reverse_with_get
         <div class="clearfix">
             <label>New name</label>
             <div class="input">
-                <input name="dest_path" value="" type='text'/>
+                <input id="new-name-input" name="dest_path" value="" type='text'/>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
+        <div id="rename-name-required-alert" class="alert-message warning hide" style="position: absolute; left: 10;">
 
+            <p><strong>Sorry, name is required.</strong>
+        </div>
 
         <input id="rename_src_path" type="hidden" name="src_path" type='text'>
         <input type="submit" value="Submit" class="btn primary" />
@@ -294,6 +297,13 @@ from desktop.lib.django_util import reverse_with_get
 
     $('#cancel-rename-button').click(function(){
         $('#rename-modal').modal('hide');
+    })
+
+    $('#rename-form').submit(function(){
+        if($('#new-name-input').val() == ''){
+            $('#rename-name-required-alert').show(250);
+            return false;
+        }
     })
 
     //upload handlers
