@@ -17,7 +17,7 @@
 <% import urllib %>
 
 ${wrappers.head()}
-	<h1>jHue Users</h1>
+        <h1>jHue Users</h1>
       <table class="datatables">
         <thead>
           <tr>
@@ -26,14 +26,14 @@ ${wrappers.head()}
             <th>Last Name</th>
             <th>E-mail</th>
             <th>Last Login</th>
-			<th>&nbsp;</th>
+                        <th>&nbsp;</th>
           </tr>
-        </head>
+        </thead>
         <tbody>
         % for user in users:
           <tr>
-            <td>${user.username}</td>
-            <td>${user.first_name}</td>
+            <td id="cm_test">${user.username}</td>
+            <td id="cm_test2">${user.first_name}</td>
             <td>${user.last_name}</td>
             <td>${user.email}</td>
             <td>
@@ -49,18 +49,47 @@ ${wrappers.head()}
       </table>
       <a class="btn primary" href="${ url('useradmin.views.edit_user') }">Add User</a>
 
-	<script type="text/javascript" charset="utf-8">
-		$(document).ready(function(){
-			$(".datatables").dataTable({
-				"bPaginate": false,
-			    "bLengthChange": false,
-				"bInfo": false,
-				"bFilter": false
-			});
-			$(".dataTables_wrapper").css("min-height","0");
-			$(".dataTables_filter").hide();
+        <script type="text/javascript" charset="utf-8">
+                $(document).ready(function(){
+                        $(".datatables").dataTable({
+                                "bPaginate": false,
+                            "bLengthChange": false,
+                                "bInfo": false,
+                                "bFilter": false
+                        });
+                        $(".dataTables_wrapper").css("min-height","0");
+                        $(".dataTables_filter").hide();
 
-		});
-	</script>
+                });
+
+                $('#cm_test').cmenu({
+                    on: 'rightClick',
+                    menuId: 'drop_me_down',
+                    menuTitle: 'Drop me down',
+                    items: [{
+                             menuText: 'Say foo',
+                             onSel: "window.alert('foo');"
+                            },
+                            {menuText: 'Say bar',
+                             onSel: "window.alert('bar');"
+                            }
+                           ]
+                });
+
+                $('#cm_test2').cmenu({
+                    on: 'rightClick',
+                    menuId: 'like_its_hot',
+                    menuTitle: 'Drop it like it\'s hot',
+                    items: [{
+                             menuText: 'Say baz',
+                             onSel: "window.alert('baz');"
+                            },
+                            {menuText: 'Say qux',
+                             onSel: "window.alert('qux');"
+                            }
+                           ]
+                });
+
+        </script>
 
 ${wrappers.foot()}

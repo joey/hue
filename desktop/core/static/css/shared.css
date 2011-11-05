@@ -90,6 +90,8 @@ div.solid-win div.bottom {
 	overflow: visible;
 	position: relative;
 	clear: both;
+	padding: 0px;
+	border: 0px;
 }
 div.solid-win div.bottom_lr { 
 	position: relative;

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/static/css/reset.css" type="text/css" media="screen" charset="utf-8">
   <link rel="stylesheet" href="/static/css/windows.css" type="text/css" media="screen" charset="utf-8">
   <link rel="stylesheet" href="/static/css/desktop.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/static/css/jhue.css" type="text/css" media="screen" charset="utf-8">
   <link rel="stylesheet" href="/static/css/hue-deprecated.css" type="text/css" media="screen" charset="utf-8">
   <link rel="stylesheet" href="/static/js/ThirdParty/jframe/Assets/jframe.css" type="text/css" media="screen" charset="utf-8">
 
@@ -72,7 +73,7 @@
         new Fx.Elements(bgEls, {
           duration: 500
         }).start(styles);
-        
+
         //configure the clientcide assets location.
         Clientcide.setAssetLocation("/static/js/ThirdParty/clientcide/Assets");
         var growled = {};
@@ -86,11 +87,11 @@
           var launching = 'Launching ' + appName;
           var msg = loading;
           if (Hue.Desktop.hasLoaded(component)) msg = launching;
-          if (!FlashMessage.checkForFlashMessage(loading) && 
-              !FlashMessage.checkForFlashMessage(launching) && 
+          if (!FlashMessage.checkForFlashMessage(loading) &&
+              !FlashMessage.checkForFlashMessage(launching) &&
               !$$('.loadingmsg').length) {
                 growled[component] = FlashMessage.flash({
-                  message: msg, 
+                  message: msg,
                   duration: 10000
                 });
           }
