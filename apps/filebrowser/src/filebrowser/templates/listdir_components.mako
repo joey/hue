@@ -49,6 +49,7 @@ from desktop.lib.django_util import reverse_with_get
         margin: 0;
     }
   </style>
+  <div  class="well">Filter by name: <input id="filter-input"/><a href="#" id="clear-filter-button" class="btn">Clear</a></div>
   <table class="datatables">
     <thead>
       <tr>
@@ -83,7 +84,7 @@ from desktop.lib.django_util import reverse_with_get
   ## iri encoding correctly for us.
         
         <% path = file['path'] %>
-        <tr>
+        <tr class="file-row" file-name="${display_name}">
           <td>
             <div>
               % if "dir" == file['type']:
@@ -118,10 +119,11 @@ from desktop.lib.django_util import reverse_with_get
                     <a class="btn danger small delete" delete-type="rmdir" file-to-delete="${path}" data-backdrop="true" data-keyboard="true">Delete</a></li>
                     <a class="btn danger small delete" delete-type="rmtree" file-to-delete="${path}" >Delete Recursively</a>
                   % else:
+                    <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
                     <a class="btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
                     <a class="btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
                     <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
-                    <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
+
                   % endif
                   <a class="btn small rename" file-to-rename="${path}">Rename</a>
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
@@ -300,6 +302,27 @@ from desktop.lib.django_util import reverse_with_get
     })
     $('#cancel-create-directory-button').click(function(){
         $('#create-directory-modal').modal('hide');
+    })
+
+    //filter handlers
+    $('#filter-input').keyup(function(){
+        $.each($('.file-row'), function(index, value) {
+
+          if($(value).attr('file-name').toLowerCase().indexOf($('#filter-input').val().toLowerCase()) == -1 && $('#filter-input').val() != ''){
+             // alert('hide: ' + $(value).attr('file-name'));
+            $(value).addClass('fade').addClass('hide');
+          }else{
+            $(value).removeClass('fade').removeClass('hide');
+          }
+        });
+
+    })
+
+    $('#clear-filter-button').click(function(){
+        $('#filter-input').val('');
+        $.each($('.file-row'), function(index, value) {
+            $(value).removeClass('fade').removeClass('hide');
+        });
     })
 
 </script>

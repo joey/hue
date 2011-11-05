@@ -98,6 +98,7 @@ def is_home(path):
 		</div>
 	</div>
     % if breadcrumbs:
+
 	<div class="menubar">
 		<div class="menubar-inner">
 			<ul class="breadcrumb">
@@ -105,6 +106,8 @@ def is_home(path):
                 <li><a href="/filebrowser/view${breadcrumb_item['url']}">${breadcrumb_item['label']}</a> <span class="divider">/</span></li>
                 % endfor
             </ul>
+            
+
 		</div>
 	</div>
     %endif
@@ -114,7 +117,8 @@ def is_home(path):
          <div class="sidebar">
             <div class="well">
                  % if toolbar:
-                        
+
+                        <ul>
                         % if cwd_set:
                           % if show_upload:
                             <li><a class="upload-link" href="#">Upload Files</a></li>
@@ -123,7 +127,8 @@ def is_home(path):
                             <li><a class="create-directory-link" href="#">New Directory</a></li>
                           %endif
                         % endif
-                     % endif
+                            </ul>
+                  % endif
             </div>
         </div>
         % endif
