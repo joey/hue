@@ -27,7 +27,11 @@
 <%namespace name="wrappers" file="header_footer.mako" />
 ${wrappers.head(truncate(filename)+' :: File Viewer', show_upload=False, show_new_directory=False)}
 <body>
-  <h1>${path}</h1>
+  <ul class="breadcrumb">
+  % for breadcrumb_item in breadcrumbs:
+      <li><a href="/filebrowser/view${breadcrumb_item['url']}">${breadcrumb_item['label']}</a> <span class="divider">/</span></li>
+  % endfor
+  </ul>
   <div class="toolbar">
 
 
