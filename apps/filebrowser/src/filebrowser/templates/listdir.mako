@@ -23,11 +23,12 @@ ${wrappers.head('File Browser', '', path, current_request_path, cwd_set=cwd_set,
 
 
    
-    <div class="content">
-        <div id="dirlist" class="view">
-        ${dir.list_table_browser(files, path_enc, current_request_path, cwd_set)}
-        </div>
+<div class="content">
+    <div id="dirlist" class="view">
+    ${dir.list_table_browser(files, path_enc, current_request_path, cwd_set)}
     </div>
+</div>
+
 
 
 

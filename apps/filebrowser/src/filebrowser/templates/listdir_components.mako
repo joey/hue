@@ -105,13 +105,13 @@ from desktop.lib.django_util import reverse_with_get
              % if ".." != file['name']:
 
                   % if "dir" == file['type']:
-                    <a class="btn danger small" href="${reverse_with_get('filebrowser.views.rmdir', get=dict(path=path,next=current_request_path))}">Delete</a></li>
-                    <a class="btn danger small" href="${reverse_with_get('filebrowser.views.rmtree', get=dict(path=path,next=current_request_path))}"">Delete Recursively</a>
+                    <a class="btn danger small delete" delete-type="rmdir" file-to-delete="${path}" data-backdrop="true" data-keyboard="true">Delete</a></li>
+                    <a class="btn danger small delete" delete-type="rmtree" file-to-delete="${path}" >Delete Recursively</a>
                   % else:
                     <a class="btn small" href="${url('filebrowser.views.view', path=urlencode(path))}">View File</a>
                     <a class="btn small" href="${url('filebrowser.views.edit', path=urlencode(path))}">Edit File</a>
                     <a class="btn small" href="${url('filebrowser.views.download', path=urlencode(path))}" target="_blank">Download File</a>
-                    <a class="btn small" href="${reverse_with_get('filebrowser.views.remove', get=dict(path=path, next=current_request_path))}">Delete</a>
+                    <a class="btn small danger delete" delete-type="remove" file-to-delete="${path}">Delete</a>
                   % endif
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.rename',get=dict(src_path=path,next=current_request_path))}">Rename</a>
                   <a class="btn small" href="${reverse_with_get('filebrowser.views.chown',get=dict(path=path,user=file['stats']['user'],group=file['stats']['group'],next=current_request_path))}">Change Owner / Group</a>
@@ -124,7 +124,29 @@ from desktop.lib.django_util import reverse_with_get
       % endfor
     </tbody>
   </table>
+
+<div id="delete-modal" class="modal hide fade">
+
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Please Confirm</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete this file?</p>
+    </div>
+    <div class="modal-footer">
+        <a id="cancel-delete-button" class="btn primary">No</a>
+        <form id="delete-form" action="" method="POST" enctype="multipart/form-data" class="form-stacked">
+        <input id="file-to-delete-input" type="hidden" name="path" id="id_path" />
+        <input type="submit" value="Yes" class="btn" />
+        </form>
+    </div>
+
+</div>
+
 <script type="text/javascript" charset="utf-8">
+
+
 	$(document).ready(function(){
 		$(".datatables").dataTable({
 			"bPaginate": false,
@@ -133,5 +155,17 @@ from desktop.lib.django_util import reverse_with_get
 			"bInfo": false
 		});
 	});
+
+    
+    $(".delete").click(function(eventObject){
+        $('#file-to-delete-input').attr('value', $(eventObject.target).attr('file-to-delete'));
+        $('#delete-form').attr('action', '/filebrowser/' + $(eventObject.target).attr('delete-type') + '?next=' + encodeURI('${current_request_path}') + '&path=' + encodeURI('${path}'));
+        $('#delete-modal').modal('show');
+    })
+
+    $('#cancel-delete-button').click(function(){
+        $('#delete-modal').modal('hide');
+    })
+
 </script>
 </%def>
