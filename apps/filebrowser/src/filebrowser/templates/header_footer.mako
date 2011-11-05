@@ -56,14 +56,11 @@ def is_home(path):
         padding-top: 100px;
       }
     </style>
-<<<<<<< HEAD
-	<script src="/static/ext/js/jquery/jquery-1.6.4.min.js" type="text/javascript" charset="utf-8"></script>
-=======
 	<script src="/static/ext/js/jquery/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
->>>>>>> aac826c70dd9e14569c7e269a7244753216f37c9
 	<script src="/static/js/Source/jHue/jquery.showusername.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/static/ext/js/jquery/plugins/jquery.simpleplaceholder.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/static/ext/js/jquery/plugins/jquery.dataTables.1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/ext/js/jquery/plugins/jquery.ocupload-1.1.2.packed.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/static/ext/js/bootstrap-tabs.js" type="text/javascript" charset="utf-8"></script>
 
 	<script type="text/javascript" charset="utf-8">
