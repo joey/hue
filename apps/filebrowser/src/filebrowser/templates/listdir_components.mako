@@ -311,7 +311,7 @@ from desktop.lib.django_util import reverse_with_get
     $('#create-directory-form').submit(function(){
         
         if($('#new-directory-name-input').val()==''){
-            $('#directory-name-required-alert').alert().removeClass('hide').addClass('in');
+            $('#directory-name-required-alert').alert().show(250)
             return false;
         }
 
@@ -323,9 +323,9 @@ from desktop.lib.django_util import reverse_with_get
 
           if($(value).attr('file-name').toLowerCase().indexOf($('#filter-input').val().toLowerCase()) == -1 && $('#filter-input').val() != ''){
              // alert('hide: ' + $(value).attr('file-name'));
-            $(value).addClass('fade').addClass('hide');
+            $(value).hide(250);
           }else{
-            $(value).removeClass('fade').removeClass('hide');
+            $(value).show(250);
           }
         });
 
@@ -334,7 +334,7 @@ from desktop.lib.django_util import reverse_with_get
     $('#clear-filter-button').click(function(){
         $('#filter-input').val('');
         $.each($('.file-row'), function(index, value) {
-            $(value).removeClass('fade').removeClass('hide');
+            $(value).show(250);
         });
     })
  
