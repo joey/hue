@@ -19,6 +19,7 @@ from django.template.defaultfilters import urlencode, escape, stringformat, date
 %>
 
 <%namespace name="wrappers" file="header_footer.mako" />
+
 ${wrappers.head('File Operation', show_side_bar=False)}
 
 ## Not sure if enctype breaks anything if used for things other than file upload.

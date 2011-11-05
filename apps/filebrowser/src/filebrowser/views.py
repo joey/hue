@@ -310,6 +310,7 @@ def listdir(request, path, chooser):
         'path': path,
         'file_filter': file_filter,
         'breadcrumbs': breadcrumbs,
+        'current_dir_path': path,
         # These could also be put in automatically via
         # http://docs.djangoproject.com/en/dev/ref/templates/api/#django-core-context-processors-request,
         # but manually seems cleaner, since we only need it here.

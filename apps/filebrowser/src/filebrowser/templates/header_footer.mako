@@ -122,7 +122,7 @@ def is_home(path):
                         <li><a class="${is_home(path)}" href="${url('filebrowser.views.view', path=(home_directory or "/"))}">My Home</a></li>
                         % if cwd_set:
                           % if show_upload:
-                            <li><a class="${is_selected(section, 'upload')}" href="${url('filebrowser.views.upload')}?dest=${path|urlencode}&next=${current_request_path|urlencode}">Upload Files</a></li>
+                            <li><a class="${is_selected(section, 'upload')} upload-link" href="#">Upload Files</a></li>
                           % endif
                           % if show_new_directory:
                             <li><a class="${is_selected(section, 'new directory')}" href="${url('filebrowser.views.mkdir')}?path=${path|urlencode}&next=${current_request_path|urlencode}">New Directory</a></li>

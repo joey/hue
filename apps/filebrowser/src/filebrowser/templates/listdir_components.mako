@@ -40,6 +40,8 @@ from desktop.lib.django_util import reverse_with_get
   else:
     optional_fit_text = ''
   %>
+  <script src="/static/ext/js/fileuploader.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="/static/ext/css/fileuploader.css" type="text/css" media="screen" title="no title" charset="utf-8" />
   <style type="text/css">
     .form-padding-fix{
         display: inline;
@@ -79,6 +81,7 @@ from desktop.lib.django_util import reverse_with_get
         %>
   ## Since path is in unicode, Django and Mako handle url encoding and
   ## iri encoding correctly for us.
+        
         <% path = file['path'] %>
         <tr>
           <td>
@@ -170,7 +173,7 @@ from desktop.lib.django_util import reverse_with_get
     <div class="modal-footer">
 
 
-        <input id="rename_src_path" type="hidden" name="src_path" type='text' value="/tmp"/>
+        <input id="rename_src_path" type="hidden" name="src_path" type='text'>
         <input type="submit" value="Submit" class="btn primary" />
         <a id="cancel-rename-button" class="btn">Cancel</a>
 
@@ -178,9 +181,58 @@ from desktop.lib.django_util import reverse_with_get
     </form>
 </div>
 
+<!-- upload modal -->
+
+<div id="upload-modal" class="modal hide fade">
+    <form id="upload-form" action="/filebrowser/rename?next=${current_request_path}" method="POST" enctype="multipart/form-data" class="form-stacked form-padding-fix">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>Uploading to: <span id="upload-dir-name">${current_dir_path}</span></h3>
+    </div>
+    <div class="modal-body">
+        <form action="/filebrowser/upload?next=${current_dir_path}" method="POST" enctype="multipart/form-data" class="form-stacked">
+         <div id="file-uploader">
+		<noscript>
+			<p>Please enable JavaScript to use file uploader.</p>
+			<!-- or put a simple form for upload here -->
+		</noscript>
+	</div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+
+    </div>
+    </form>
+</div>
+
 
 <script type="text/javascript" charset="utf-8">
+    var num_of_pending_uploads = 0;
+    function createUploader(){
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('file-uploader'),
+            action: '/filebrowser/upload',
+            params:{
+                dest: '${current_dir_path}',
+                fileFieldLabel: 'hdfs_file'
+            },
+            onComplete:function(id, fileName, responseJSON){
+                num_of_pending_uploads--;
+                if(num_of_pending_uploads == 0){
+                    window.location = "/filebrowser/view${current_dir_path}";
+                }
+            },
+            onSubmit:function(id, fileName, responseJSON){
+                num_of_pending_uploads++;
+            },
+            debug: true
+        });
+    }
 
+    // in your app create uploader as soon as the DOM is ready
+    // don't wait for the window to load
+    window.onload = createUploader;
 
 	$(document).ready(function(){
 		$(".datatables").dataTable({
@@ -212,5 +264,12 @@ from desktop.lib.django_util import reverse_with_get
     $('#cancel-rename-button').click(function(){
         $('#rename-modal').modal('hide');
     })
+
+    //upload handlers
+    $('.upload-link').click(function(){
+        $('#upload-modal').modal('show');
+    })
+
 </script>
+
 </%def>
