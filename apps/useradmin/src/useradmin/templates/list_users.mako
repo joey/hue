@@ -27,7 +27,7 @@ ${wrappers.head()}
             <th>E-mail</th>
             <th colspan="2">Last Login</th>
           </tr>
-        </head>
+        </thead>
         <tbody>
         % for user in users:
           <tr>
